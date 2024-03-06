@@ -7,6 +7,7 @@ import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
+import cors from "cors";
 
 dotenv.config();
 
@@ -22,6 +23,11 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
