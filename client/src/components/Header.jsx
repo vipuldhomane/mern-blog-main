@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
+import HeadingLogo from "./HeadingLogo";
 
 export default function Header() {
   const path = useLocation().pathname;
@@ -49,8 +50,8 @@ export default function Header() {
   };
 
   return (
-    <Navbar className="border-b-2">
-      <Link
+    <Navbar className="border-b-2 border-orange-600">
+      {/* <Link
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
       >
@@ -58,7 +59,8 @@ export default function Header() {
           Vipul's
         </span>
         Blog
-      </Link>
+      </Link> */}
+      <HeadingLogo />
       <form onSubmit={handleSubmit}>
         <TextInput
           type="text"

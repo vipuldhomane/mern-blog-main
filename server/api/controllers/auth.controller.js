@@ -16,7 +16,7 @@ export const signup = async (req, res, next) => {
   ) {
     next(errorHandler(400, "All fields are required"));
   }
-
+  // encrypt password for the safety
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
   // create a new user
@@ -47,17 +47,22 @@ export const signin = async (req, res, next) => {
     if (!validUser) {
       return next(errorHandler(404, "User not found"));
     }
+    // compare with original password
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password"));
     }
+    // generate jwt token for validation
     const token = jwt.sign(
       { id: validUser._id, isAdmin: validUser.isAdmin },
-      process.env.JWT_SECRET
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
     );
 
     const { password: pass, ...rest } = validUser._doc;
-
+    // not needed. but doing this to avoid cookies issues
+    // TODO: Remove in Production
+    rest.token = token;
     res
       .status(200)
       .cookie("access_token", token, {
