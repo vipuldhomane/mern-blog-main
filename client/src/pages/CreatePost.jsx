@@ -60,6 +60,7 @@ export default function CreatePost() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const res = await fetch("/api/post/create", {
         method: "POST",

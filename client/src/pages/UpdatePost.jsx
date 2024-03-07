@@ -46,7 +46,28 @@ export default function UpdatePost() {
       console.log(error.message);
     }
   }, [postId]);
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote", "code-block"],
+      ["link", "image", "video", "formula"],
 
+      [{ header: 1 }, { header: 2 }], // custom button values
+      [{ list: "ordered" }, { list: "bullet" }, { list: "check" }],
+      [{ script: "sub" }, { script: "super" }], // superscript/subscript
+      [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+      [{ direction: "rtl" }], // text direction
+
+      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+
+      ["clean"], // remove formatting button
+    ],
+  };
   const handleUpdloadImage = async () => {
     try {
       if (!file) {
@@ -86,8 +107,9 @@ export default function UpdatePost() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log(currentUser._id, formData.id, postId);
       const res = await fetch(
-        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        `/api/post/updatepost/${postId}/${currentUser._id}`, // here in place of postId i had formData._id earlier
         {
           method: "PUT",
           headers: {
@@ -178,6 +200,7 @@ export default function UpdatePost() {
           placeholder="Write something..."
           className="h-72 mb-12"
           required
+          modules={modules}
           onChange={(value) => {
             setFormData({ ...formData, content: value });
           }}

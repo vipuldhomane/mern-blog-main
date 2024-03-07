@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import OAuth from "../components/OAuth";
 import HeadingLogo from "../components/HeadingLogo";
+import { host } from "../hostDomain";
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -24,7 +25,7 @@ export default function SignUp() {
       setLoading(true);
       setErrorMessage(null);
       // this api route is working because of proxy setup in vite config
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch(`${host}/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

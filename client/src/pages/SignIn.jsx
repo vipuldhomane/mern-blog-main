@@ -9,6 +9,7 @@ import {
 } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
 import HeadingLogo from "../components/HeadingLogo";
+import { host } from "../hostDomain";
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -28,7 +29,7 @@ export default function SignIn() {
     try {
       dispatch(signInStart());
 
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch(`${host}/api/auth/signin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -41,7 +42,13 @@ export default function SignIn() {
 
       if (res.ok) {
         // send the user to state with RTK function
+        const { token } = data;
+        console.log(token);
+        document.cookie = `access_token=${token}; expires=${new Date(
+          Date.now() + 24 * 60 * 60 * 1000
+        ).toUTCString()}; path=/;`;
         dispatch(signInSuccess(data));
+
         navigate("/");
       }
     } catch (error) {
