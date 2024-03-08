@@ -12,10 +12,17 @@ export default function OAuth() {
   const navigate = useNavigate();
 
   const handleGoogleClick = async () => {
+    // need to setup auth on firebase before this!!!!!!
     const provider = new GoogleAuthProvider();
+
+    //prevent from automatic selection of gmail account
     provider.setCustomParameters({ prompt: "select_account" });
+
     try {
+      //will return user data
       const resultsFromGoogle = await signInWithPopup(auth, provider);
+
+      // create the user in database with data received from the google
       const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -25,6 +32,7 @@ export default function OAuth() {
           googlePhotoUrl: resultsFromGoogle.user.photoURL,
         }),
       });
+      // return created user & set to redux 
       const data = await res.json();
       if (res.ok) {
         dispatch(signInSuccess(data));

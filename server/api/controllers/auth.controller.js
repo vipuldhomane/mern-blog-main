@@ -77,6 +77,7 @@ export const signin = async (req, res, next) => {
 export const google = async (req, res, next) => {
   const { email, name, googlePhotoUrl } = req.body;
   try {
+    // Find If the user exists in DB
     const user = await User.findOne({ email });
     if (user) {
       const token = jwt.sign(
@@ -91,6 +92,8 @@ export const google = async (req, res, next) => {
         })
         .json(rest);
     } else {
+      //  Create a new user with Google info and save it
+      // need to create a password and username to save to db
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
@@ -108,6 +111,7 @@ export const google = async (req, res, next) => {
         { id: newUser._id, isAdmin: newUser.isAdmin },
         process.env.JWT_SECRET
       );
+      // newUser._doc  will return all fields without mongoose metadata such as cerated at id and other data
       const { password, ...rest } = newUser._doc;
       res
         .status(200)
