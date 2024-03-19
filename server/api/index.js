@@ -25,7 +25,8 @@ const __dirname = path.resolve();
 const app = express();
 app.use(
   cors({
-    origin: "*",
+    // origin: "*",
+    origin: "https://mern-blog-main-ruby.vercel.app",
   })
 );
 
