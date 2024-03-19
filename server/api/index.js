@@ -23,10 +23,16 @@ mongoose
 const __dirname = path.resolve();
 
 const app = express();
+
+const allowedOrigins = [
+  "https://mern-blog-main-ruby.vercel.app",
+  "http://localhost:5371",
+];
 app.use(
   cors({
     // origin: "*",
-    origin: "https://mern-blog-main-ruby.vercel.app",
+    origin: allowedOrigins,
+    credentials: true, // Allow cookies to be sent with cross-origin requests
   })
 );
 
