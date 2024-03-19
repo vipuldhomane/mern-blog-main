@@ -5,12 +5,11 @@ import PostCard from "../components/PostCard";
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
+
   // start the development server on render
   useEffect(() => {
     async function startServer() {
-      const res = await fetch(
-        "https://mern-blog-main-ds4m.onrender.com/api/user/test"
-      );
+      const res = await fetch("/api/user/test");
       const data = await res.json();
       console.log(data);
     }

@@ -7,6 +7,7 @@ import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 import postRoutes from "./routes/post.route.js";
 import commentRoutes from "./routes/comment.route.js";
+import morgan from "morgan";
 import cors from "cors";
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use(
   })
 );
 
+app.use(morgan("combined"));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -46,6 +48,8 @@ app.get("*", (req, res) => {
   // res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
   res.json({ message: "Not a valid Path" });
 });
+
+// Set up Morgan logging middleware
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
