@@ -27,6 +27,7 @@ const app = express();
 const allowedOrigins = [
   "https://mern-blog-main-ruby.vercel.app",
   "http://localhost:5371",
+  "https://telzonsite.vercel.app/",
 ];
 app.use(
   cors({
