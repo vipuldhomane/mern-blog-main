@@ -29,13 +29,28 @@ const allowedOrigins = [
   "http://localhost:5371",
   "https://telzonsite.vercel.app",
 ];
-app.use(
-  cors({
-    // origin: "*",
-    origin: allowedOrigins,
-    credentials: true, // Allow cookies to be sent with cross-origin requests
-  })
-);
+// const allowedOrigins = ["http://example1.com", "http://example2.com"];
+
+// Set up CORS options
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+// Enable CORS with options
+app.use(cors(corsOptions));
+// app.use(
+//   cors({
+//     // origin: "*",
+//     origin: allowedOrigins,
+//     credentials: true, // Allow cookies to be sent with cross-origin requests
+//   })
+// );
 
 app.use(morgan("combined"));
 app.use(express.json());
