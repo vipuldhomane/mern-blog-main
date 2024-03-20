@@ -20,19 +20,19 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // const fetchPosts = async () => {
-    //   try {
-    //     const response = await axiosInstance.get("api/post/getPosts");
-    //     setPosts(response.data.posts);
-    //   } catch (error) {
-    //     console.error("Error fetching posts:", error);
-    //   }
-    // };
     const fetchPosts = async () => {
-      const res = await fetch("/api/post/getPosts");
-      const data = await res.json();
-      setPosts(data.posts);
+      try {
+        const response = await axiosInstance.get("/api/post/getPosts");
+        setPosts(response.data.posts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      }
     };
+    // const fetchPosts = async () => {
+    //   const res = await fetch("/api/post/getPosts");
+    //   const data = await res.json();
+    //   setPosts(data.posts);
+    // };
     fetchPosts();
   }, []);
 
