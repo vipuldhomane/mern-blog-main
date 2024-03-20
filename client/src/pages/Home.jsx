@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import { useEffect, useState } from "react";
 import PostCard from "../components/PostCard";
+// import { axiosInstance } from "../axios";
+import axios from "axios";
 import { axiosInstance } from "../axios";
 
 export default function Home() {
@@ -10,7 +12,7 @@ export default function Home() {
   // start the development server on render
   useEffect(() => {
     async function startServer() {
-      const res = await fetch("/api/user/test");
+      const res = await fetch("http://localhost:8000/api/user/test");
       const data = await res.json();
       console.log(data);
     }
@@ -20,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     // const fetchPosts = async () => {
     //   try {
-    //     const response = await axiosInstance.get("/api/post/getPosts");
+    //     const response = await axiosInstance.get("api/post/getPosts");
     //     setPosts(response.data.posts);
     //   } catch (error) {
     //     console.error("Error fetching posts:", error);

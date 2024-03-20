@@ -26,10 +26,9 @@ const app = express();
 
 const allowedOrigins = [
   "https://mern-blog-main-ruby.vercel.app",
-  "http://localhost:5371",
+  "http://localhost:5173",
   "https://telzonsite.vercel.app",
 ];
-// const allowedOrigins = ["http://example1.com", "http://example2.com"];
 
 // Set up CORS options
 const corsOptions = {
@@ -40,10 +39,24 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
+  // headers: {
+  //   "Access-Control-Allow-Headers":
+  //     "Origin, X-Requested-With, Content-Type, Accept",
+  //   "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+  //   "Access-Control-Allow-Credentials": true, // Set to true if you want to allow credentials (cookies, authorization headers) to be sent in cross-origin requests
+  // },
 };
 
 // Enable CORS with options
 app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  // res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 // app.use(
 //   cors({
 //     // origin: "*",
