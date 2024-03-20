@@ -28,6 +28,7 @@ const allowedOrigins = [
   "https://mern-blog-main-ruby.vercel.app",
   "http://localhost:5173",
   "https://telzonsite.vercel.app",
+  "https://www.telzonmarketing.com",
 ];
 
 // Set up CORS options
