@@ -4,27 +4,35 @@ import { Link, useParams } from "react-router-dom";
 import CallToAction from "../components/CallToAction";
 import CommentSection from "../components/CommentSection";
 import PostCard from "../components/PostCard";
+import { axiosInstance } from "../axios";
 
 export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [post, setPost] = useState(null);
+  const [post, setPost] = useState({});
   const [recentPosts, setRecentPosts] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
-        const data = await res.json();
-        if (!res.ok) {
+        // const res = await fetch(`/api/post/getposts?slug=${postSlug}`);
+        // const data = await res.json();
+        const res = await axiosInstance.get(
+          `/api/post/getposts?slug=${postSlug}`
+        );
+        const data = res.data.posts;
+
+        console.log(res);
+
+        if (!res) {
           setError(true);
           setLoading(false);
           return;
         }
-        if (res.ok) {
-          setPost(data.posts[0]);
+        if (res) {
+          setPost(data[0]);
           setLoading(false);
           setError(false);
         }
@@ -34,6 +42,7 @@ export default function PostPage() {
       }
     };
     fetchPost();
+    console.log(post);
   }, [postSlug]);
 
   useEffect(() => {
@@ -61,6 +70,7 @@ export default function PostPage() {
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
       <h1 className="text-3xl mt-10 p-3 text-center font-serif max-w-2xl mx-auto lg:text-4xl">
         {post && post.title}
+        {console.log(post)}
       </h1>
       <Link
         to={`/search?category=${post && post.category}`}
