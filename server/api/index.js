@@ -29,7 +29,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
   "https://telzonsite.vercel.app",
-  "https://www.telzonmarketing.com",
+  "https://www.telzonmarketing.in",
 ];
 
 // Set up CORS options
