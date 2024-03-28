@@ -25,11 +25,11 @@ const __dirname = path.resolve();
 const app = express();
 
 const allowedOrigins = [
+  "https://telzonmarketing.in",
   "https://mern-blog-main-ruby.vercel.app",
   "http://localhost:5173",
   "http://localhost:3000",
   "https://telzonsite.vercel.app",
-  "https://www.telzonmarketing.in",
 ];
 
 // Set up CORS options
